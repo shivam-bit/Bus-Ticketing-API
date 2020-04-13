@@ -21,8 +21,9 @@ const ticketsSchema=new mongoose.Schema({
             message : 'Please select from male or female'
         }
     },
-    Mobile:{
+    mobile:{
         type:Number,
+        minlength : [10,'mobile number should be at least 10 digits'],
         maxlength : [10, 'mobile number should be at max 10 digits']
     },
     validation_id_no:{

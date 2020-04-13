@@ -41,14 +41,24 @@ exports.ticketStatus=async(req,res,next)=>{
     }
     res.status(200).json({
         success:true,
-        message:"updated successfully",
         data:ticket.status
     })
 
 
 }
 // view detailed ticket status
-exports.detailedTicketStatus=(req,res,next)=>{
+exports.detailedTicketStatus=async (req,res,next)=>{
+    const ticket=await ticketsDB.findById(req.params.id)
+    if (!ticket){
+        res.status(404),json({
+            success:false,
+            message:"wrong id"
+        })
+    }
+    res.status(200).json({
+        success:true,
+        data:ticket
+    })
 
 }
 // view all tickets where status is booked/cancelled
