@@ -14,7 +14,21 @@ exports.bookTicket=async (req,res,next)=>{
 // cancel ticket by updating ticket-status to cancelled
 // update details api/v1/ticket/update/:id
 exports.updateTicket=async(req,res,next)=>{
-
+    const ticket=await ticketsDB.findById(req.params.id)
+    if (!ticket){
+        res.status(404),json({
+            success:false,
+            message:"wrong id"
+        })
+    }
+    const updatedTicket=await ticketsDB.findByIdAndUpdate(req.params.id,req.body,{
+        new:true
+    })
+    res.status(200).json({
+        success:true,
+        message:"updated successfully",
+        data:updatedTicket
+    })
 }
 // view ticket status =>api/v1/ticket/status/:id
 exports.ticketStatus=async(req,res,next)=>{
