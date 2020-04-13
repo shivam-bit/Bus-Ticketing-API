@@ -13,7 +13,7 @@ exports.bookTicket=async (req,res,next)=>{
 
 // cancel ticket by updating ticket-status to cancelled
 // update details api/v1/ticket/update/:id
-exports.updateDetails=async(req,res,next)=>{
+exports.updateTicket=async(req,res,next)=>{
 
 }
 // view ticket status =>api/v1/ticket/status/:id
