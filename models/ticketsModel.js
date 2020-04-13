@@ -41,4 +41,8 @@ const ticketsSchema=new mongoose.Schema({
         }
     }
 })
+ticketsSchema.pre('save',async function(next){
+    this.status="Booked"
+    next()
+})
 module.exports=mongoose.model('ticketsDB',ticketsSchema)
