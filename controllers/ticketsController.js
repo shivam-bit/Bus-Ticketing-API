@@ -2,7 +2,13 @@ const ticketsDB=require('../models/ticketsModel')
 
 // book ticket => api/v1/ticket/book
 exports.bookTicket=async (req,res,next)=>{
-
+    const booking=await ticketsDB.create(req.body)
+    ticket=await ticketsDB.findByIdAndUpdate(booking._id,{"status":"Booked"},{new:true})
+    res.status(200).json({
+        success:true,
+        message:"Ticket Booked",
+        data:ticket
+    })
 }
 
 // cancel ticket by updating ticket-status to cancelled
