@@ -2,13 +2,33 @@ const ticketsDB=require('../models/ticketsModel')
 
 // book ticket => api/v1/ticket/book
 exports.bookTicket=async (req,res,next)=>{
-    const booking=await ticketsDB.create(req.body)
-    res.status(200).json({
-        success:true,
-        message:"Ticket Booked",
-        // data:ticket
-        data:booking
-    })
+    try{
+        const dateObject=new Date(req.body.date_of_travel)
+        if (dateObject!='Invalid Date'){
+            const ticketsBooked=await ticketsDB.find({$and:[{date_of_travel:dateObject.toISOString()},{status:"Booked"}]})
+            if (ticketsBooked.length>=8){
+                res.status(200).json({
+                    success:false,
+                    message:"seats full"
+                })
+            }
+            else{
+                const booking=await ticketsDB.create(req.body)
+                res.status(200).json({
+                    success:true,
+                    message:"Ticket Booked",
+                    data:booking
+            })}
+        }else{
+            res.status(200).json({
+                success:false,
+                message:"please provide date of travel"
+            })
+        }
+    }catch(err){
+        console.log(err.message)
+        next(err)
+    }
 }
 // cancel ticket => api/v1/ticket/cancel/:id
 exports.cancelTicket=async(req,res,next)=>{
@@ -21,11 +41,10 @@ exports.cancelTicket=async(req,res,next)=>{
     }
     res.status(200).json({
         success:true,
-        message:"Ticket Booked",
+        message:"Ticket cancelled",
         data:ticket
     })
 }
-// cancel ticket by updating ticket-status to cancelled
 // update details api/v1/ticket/update/:id
 exports.updateTicket=async(req,res,next)=>{
     const ticket=await ticketsDB.findById(req.params.id)
@@ -37,6 +56,7 @@ exports.updateTicket=async(req,res,next)=>{
     }
     const updatedTicket=await ticketsDB.findByIdAndUpdate(req.params.id,req.body,{
         new:true
+        // runValidators: true 
     })
     res.status(200).json({
         success:true,
