@@ -39,7 +39,11 @@ module.exports=(err,req,res,next)=>{
         if(err.code === 11000) {
             const message = `Duplicate ${Object.keys(err.keyValue)} entered.`;
             error = new errorHandlerClass(message, 400);
-            
+            res.status(error.statusCode).json({
+                success:false,
+                message:error.message
+            })
+
         }
         // console.log(err)
         const message = err.message || "Internal Server Error"
