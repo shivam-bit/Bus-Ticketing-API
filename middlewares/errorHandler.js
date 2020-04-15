@@ -1,10 +1,4 @@
-class errorHandlerClass extends Error{
-    constructor(message,statusCode){
-        super(message)
-        this.statusCode=statusCode
-        Error.captureStackTrace(this,this.constructor)
-    }
-}
+const errorHandlerClass=require('../utils/errorHandlerClass')
 module.exports=(err,req,res,next)=>{
     if(process.env.NODE_ENV === 'development') {
         res.status(err.statusCode).json({
@@ -41,7 +35,8 @@ module.exports=(err,req,res,next)=>{
                 message:error.message
         })
         }
-        const message = "Internal Server Error"
+        // console.log(err)
+        const message = err.message || "Internal Server Error"
         error = new errorHandlerClass(message, 500);
         res.status(error.statusCode).json({
             success:false,
@@ -49,12 +44,3 @@ module.exports=(err,req,res,next)=>{
         })
     }
 }
-
-// module.exports=(err,req,res,next)=>{
-//     const message = Object.values(err.errors).map(value => value.message);
-//     error = new errorHandlerClass(message, 400);
-//     res.status(error.statusCode).json({
-//         success:false,
-//         message:error.message
-//     })
-// }
