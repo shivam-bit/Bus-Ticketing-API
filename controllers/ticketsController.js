@@ -35,9 +35,6 @@ exports.cancelTicket=catchAsyncError( async(req,res,next)=>{
 })
 // update details api/v1/ticket/update/:id
 exports.updateTicket=catchAsyncError(async(req,res,next)=>{
-    if (req.params.id.length!==24){
-        return next( new errorHandlerClass("wrong id",404))
-    }
     const ticket=await ticketsDB.findById(req.params.id)
     if (!ticket){
         return next( new errorHandlerClass("wrong id",404))

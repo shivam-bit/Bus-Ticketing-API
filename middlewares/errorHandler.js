@@ -35,6 +35,12 @@ module.exports=(err,req,res,next)=>{
                 message:error.message
         })
         }
+        // Handle mongoose duplicate key error
+        if(err.code === 11000) {
+            const message = `Duplicate ${Object.keys(err.keyValue)} entered.`;
+            error = new errorHandlerClass(message, 400);
+            
+        }
         // console.log(err)
         const message = err.message || "Internal Server Error"
         error = new errorHandlerClass(message, 500);

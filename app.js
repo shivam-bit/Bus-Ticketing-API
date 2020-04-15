@@ -2,6 +2,7 @@ const express=require('express')
 const app=express()
 const dotenv=require('dotenv')
 const connectDatabase=require('./config/database')
+const errorHandlerClass=require('./utils/errorHandlerClass')
 const errorHandler=require('./middlewares/errorHandler')
 // setting up config.env file variables
 dotenv.config ({path:"./config/config.env"})
@@ -17,9 +18,16 @@ process.on('uncaughtException',err=>{
 connectDatabase();
 // setting up body parser
 app.use(express.json())
+
 const tickets=require('./routes/ticket')
+const auth=require('./routes/auth')
 app.use('/api/v1',tickets)
-// app.use(tickets)
+app.use('/api/v1',auth)
+// handle unhandled routes
+app.all('*',(req,res,next)=>{
+    next(new errorHandlerClass(`${req.originalUrl} route not found`,404)) 
+ })
+
 app.use(errorHandler)
 const PORT=process.env.PORT
 const server = app.listen(PORT, ()=> {

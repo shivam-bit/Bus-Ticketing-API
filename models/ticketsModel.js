@@ -1,5 +1,6 @@
 const mongoose=require('mongoose');
 
+
 const ticketsSchema=new mongoose.Schema({
     date_of_travel:{
         type:Date,
