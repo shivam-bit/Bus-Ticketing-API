@@ -11,6 +11,8 @@ exports.bookTicket=catchAsyncError( async (req,res,next)=>{
             return next( new errorHandlerClass("sorry seats full",200))
         }
         else{
+            // adding user to req body
+            req.body.user=req.user.id
             const booking=await ticketsDB.create(req.body)
             res.status(200).json({
                 success:true,

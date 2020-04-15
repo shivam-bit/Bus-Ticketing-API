@@ -40,6 +40,11 @@ const ticketsSchema=new mongoose.Schema({
             ],
             message : 'ticket can be either booked or cancelled'
         }
+    },
+    user:{
+        type:mongoose.Schema.ObjectId,
+        ref:'User',
+        required:true
     }
 })
 ticketsSchema.pre('save',async function(next){
