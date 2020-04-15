@@ -1,6 +1,7 @@
 const User=require('../models/usersModel')
 const catchAsyncError=require('../middlewares/catchAsyncError')
 const errorHandlerClass=require('../utils/errorHandlerClass')
+const sendToken=require('../utils/jwtToken')
 
 // register a new user =>api/v1/register
 exports.registerUser=catchAsyncError( async (req,res,next)=>{
@@ -11,14 +12,7 @@ exports.registerUser=catchAsyncError( async (req,res,next)=>{
         role,
         password
     })
-    // creates JWT token
-    const token =user.getJwtToken()
-    // console.log(token)
-    res.status(200).json({
-        success:true,
-        message:"user registered successfully",
-        token
-    })
+    sendToken(user,200,res)
 })
 
 // Login user =>api/v1/login
@@ -38,11 +32,5 @@ exports.loginUser=catchAsyncError(async(req,res,next)=>{
     if (!isPasswordMatched){
         return next(new errorHandlerClass("invalid email or password",401))
     }
-    // create json web token
-    const token = user.getJwtToken()
-    res.status(200).json({
-        success:true,
-        message:"login successful",
-        token
-    })
+    sendToken(user,200,res)
 })
