@@ -17,7 +17,7 @@ const usersSchema=new mongoose.Schema({
     role:{
         type:String,
         enum:{
-            values:['customer'],
+            values:['customer','agent'],
             message:"please select user"
         },
         default:'customer'

@@ -1,6 +1,6 @@
 const express=require('express')
 const router=express.Router()
-const { isAuthenticatedUser }=require('../middlewares/authMiddleware')
+const { isAuthenticatedUser,authorizeRoles }=require('../middlewares/authMiddleware')
 
 // importing ticket controller
 const { bookTicket,
@@ -10,7 +10,7 @@ const { bookTicket,
     allTickets,
     cancelTicket 
 } = require('../controllers/ticketsController')
-router.route('/ticket/book').post(isAuthenticatedUser,bookTicket)
+router.route('/ticket/book').post(isAuthenticatedUser,authorizeRoles('admin','agent','admin'),bookTicket)
 router.route('/ticket/cancel/:id').put(isAuthenticatedUser,cancelTicket)
 router.route('/ticket/update/:id').put(isAuthenticatedUser,updateTicket)
 router.route('/ticket/status/:id').get(ticketStatus)
