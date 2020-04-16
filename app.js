@@ -1,6 +1,7 @@
 const express=require('express')
 const app=express()
 const dotenv=require('dotenv')
+const rateLimit=require('express-rate-limit')
 const connectDatabase=require('./config/database')
 const errorHandlerClass=require('./utils/errorHandlerClass')
 const errorHandler=require('./middlewares/errorHandler')
@@ -21,6 +22,13 @@ connectDatabase();
 app.use(express.json())
 // set cookie parser
 app.use(cookieParser())
+// rate limit
+const limiter=rateLimit({
+    windowMs: 10 * 60 * 1000, // 15 minutes
+    max: 100 // limit each IP to 100 requests per windowMs
+})
+//  applying limiter to all requests
+app.use(limiter);
 
 const tickets=require('./routes/ticket')
 const auth=require('./routes/auth')
