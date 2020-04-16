@@ -45,7 +45,7 @@ const limiter=rateLimit({
 //  applying limiter to all requests
 app.use(limiter);
 // setting up cors so that resources can be used by other domains
-app.user(cors())
+app.use(cors())
 
 const tickets=require('./routes/ticket')
 const auth=require('./routes/auth')
