@@ -6,6 +6,7 @@ const helmet = require('helmet')
 const mongoSanitize = require('express-mongo-sanitize');
 const xssClean = require('xss-clean')
 const hpp = require('hpp')
+const cors=require('cors')
 const connectDatabase=require('./config/database')
 const errorHandlerClass=require('./utils/errorHandlerClass')
 const errorHandler=require('./middlewares/errorHandler')
@@ -43,6 +44,8 @@ const limiter=rateLimit({
 
 //  applying limiter to all requests
 app.use(limiter);
+// setting up cors so that resources can be used by other domains
+app.user(cors())
 
 const tickets=require('./routes/ticket')
 const auth=require('./routes/auth')
