@@ -2,6 +2,7 @@ const express=require('express')
 const app=express()
 const dotenv=require('dotenv')
 const rateLimit=require('express-rate-limit')
+const helmet = require('helmet')
 const connectDatabase=require('./config/database')
 const errorHandlerClass=require('./utils/errorHandlerClass')
 const errorHandler=require('./middlewares/errorHandler')
@@ -22,6 +23,8 @@ connectDatabase();
 app.use(express.json())
 // set cookie parser
 app.use(cookieParser())
+// setup security header
+app.use(helmet())
 // rate limit
 const limiter=rateLimit({
     windowMs: 10 * 60 * 1000, // 15 minutes
