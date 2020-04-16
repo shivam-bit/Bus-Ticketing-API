@@ -24,8 +24,10 @@ app.use(cookieParser())
 
 const tickets=require('./routes/ticket')
 const auth=require('./routes/auth')
+const user=require('./routes/user')
 app.use('/api/v1',tickets)
 app.use('/api/v1',auth)
+app.use('/api/v1',user)
 // handle unhandled routes
 app.all('*',(req,res,next)=>{
     next(new errorHandlerClass(`${req.originalUrl} route not found`,404)) 
