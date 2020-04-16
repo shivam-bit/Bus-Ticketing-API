@@ -4,9 +4,8 @@
   "description": "api for bus ticketing",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app",
-    "prod": "NODE_ENV=production nodemon app"
+    "start": "NODE_ENV=production & node app.js",
+    "dev": "nodemon app"
   },
   "repository": {
     "type": "git",
@@ -20,6 +19,7 @@
   "homepage": "https://gitlab.com/shivam-bit/bus-ticketing-api#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
