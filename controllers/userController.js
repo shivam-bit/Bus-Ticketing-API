@@ -44,7 +44,3 @@ exports.updateUserDetails=catchAsyncError(async(req,res,next)=>{
         data:user
     })
 })
-
-exports.allTickets=catchAsyncError(async(req,res,next)=>{
-
-})

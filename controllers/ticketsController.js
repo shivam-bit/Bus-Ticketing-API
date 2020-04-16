@@ -29,6 +29,10 @@ exports.cancelTicket=catchAsyncError( async(req,res,next)=>{
     if (!ticket){
         return next( new errorHandlerClass("wrong id",404))
     }
+    // check owner of the ticket
+    if (ticket.user.toString() !== req.user.id ){
+        return next(new errorHandlerClass(`Current user ${req.user.id} is not allowed update details of this ticket`,))
+    }
     res.status(200).json({
         success:true,
         message:"Ticket cancelled",
@@ -40,6 +44,10 @@ exports.updateTicket=catchAsyncError(async(req,res,next)=>{
     const ticket=await ticketsDB.findById(req.params.id)
     if (!ticket){
         return next( new errorHandlerClass("wrong id",404))
+    }
+    // check owner of the ticket
+    if (ticket.user.toString() !== req.user.id ){
+        return next(new errorHandlerClass(`User ${req.user.id} is not allowed update details of this ticket`,))
     }
     const updatedTicket=await ticketsDB.findByIdAndUpdate(req.params.id,req.body,{
         new:true,
@@ -96,5 +104,23 @@ exports.allTickets=catchAsyncError( async (req,res,next)=>{
         data:alltickets
     })
 })
-//
+// reset server for admin =>api/v1/reset/:date
+exports.resetServer=catchAsyncError(async(req,res,next)=>{
+    const dateObject=new Date(req.params.date)
+    const alltickets=await ticketsDB.find({date_of_travel:dateObject.toISOString()})
+    arr=[]
+    for (let i=0;i<alltickets.length;i++){
+        let currentTicket=await ticketsDB.findByIdAndUpdate(alltickets[i]._id,{'status':'Cancelled'},{
+            new:true,
+            runValidators:true,
+            useFindAndModify:false
+        })
+        arr.push(currentTicket)
+    }
+    res.status(200).json({
+        success:true,
+        message:`${alltickets.length} tickets reset to cancelled`,
+        data:arr
+    })
+})
 
