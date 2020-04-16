@@ -4,6 +4,8 @@ const dotenv=require('dotenv')
 const rateLimit=require('express-rate-limit')
 const helmet = require('helmet')
 const mongoSanitize = require('express-mongo-sanitize');
+const xssClean = require('xss-clean')
+const hpp = require('hpp')
 const connectDatabase=require('./config/database')
 const errorHandlerClass=require('./utils/errorHandlerClass')
 const errorHandler=require('./middlewares/errorHandler')
@@ -28,6 +30,10 @@ app.use(express.json())
 app.use(cookieParser())
 // sanitize data
 app.use(mongoSanitize())
+// prevent xss attack
+app.use(xssClean)
+// prevent parameter pollution
+app.use(hpp())
 
 // rate limit
 const limiter=rateLimit({
