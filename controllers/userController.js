@@ -6,6 +6,10 @@ const sendToken=require('../utils/jwtToken')
 // current current user profile =>api/v1/profile
 exports.getUserProfile=catchAsyncError(async(req,res,next)=>{
     const user=await UsersDB.findById(req.user.id)
+        .populate({
+            path:'ticketsHistory',
+            select:'date_of_travel validation_id_no status'
+        })
     res.status(200).json({
         success:true,
         data:user
@@ -39,4 +43,8 @@ exports.updateUserDetails=catchAsyncError(async(req,res,next)=>{
         success:true,
         data:user
     })
+})
+
+exports.allTickets=catchAsyncError(async(req,res,next)=>{
+
 })

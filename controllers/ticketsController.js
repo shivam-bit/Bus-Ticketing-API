@@ -96,5 +96,5 @@ exports.allTickets=catchAsyncError( async (req,res,next)=>{
         data:alltickets
     })
 })
-// 
+//
 

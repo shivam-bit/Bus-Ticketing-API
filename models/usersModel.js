@@ -34,6 +34,9 @@ const usersSchema=new mongoose.Schema({
     },
     resetPasswordToken:String,
     resetPasswordExpire:Date
+},{
+    toJSON:{virtuals:true},
+    toObject:{virtuals:true}
 })
 
 // encrypting password before saving
@@ -51,5 +54,13 @@ usersSchema.methods.getJwtToken=function(){
 usersSchema.methods.comparePassword = async function(enteredPassword){
     return await bcrypt.compare(enteredPassword,this.password)
 }
+// show all tickets booked by user using virtuals
+usersSchema.virtual('ticketsHistory',{
+    ref:'ticketsDB',
+    localField:'_id',
+    foreignField:'user',
+    justOne:false
+
+})
 
 module.exports=mongoose.model('usersDB',usersSchema)
