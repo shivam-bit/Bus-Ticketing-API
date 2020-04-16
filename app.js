@@ -32,7 +32,7 @@ app.use(cookieParser())
 // sanitize data
 app.use(mongoSanitize())
 // prevent xss attack
-app.use(xssClean)
+app.use(xssClean())
 // prevent parameter pollution
 app.use(hpp())
 
