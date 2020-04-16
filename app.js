@@ -3,6 +3,7 @@ const app=express()
 const dotenv=require('dotenv')
 const rateLimit=require('express-rate-limit')
 const helmet = require('helmet')
+const mongoSanitize = require('express-mongo-sanitize');
 const connectDatabase=require('./config/database')
 const errorHandlerClass=require('./utils/errorHandlerClass')
 const errorHandler=require('./middlewares/errorHandler')
@@ -19,17 +20,21 @@ process.on('uncaughtException',err=>{
 
 // connecting to database
 connectDatabase();
+// setup security header
+app.use(helmet())
 // setting up body parser
 app.use(express.json())
 // set cookie parser
 app.use(cookieParser())
-// setup security header
-app.use(helmet())
+// sanitize data
+app.use(mongoSanitize())
+
 // rate limit
 const limiter=rateLimit({
     windowMs: 10 * 60 * 1000, // 15 minutes
     max: 100 // limit each IP to 100 requests per windowMs
 })
+
 //  applying limiter to all requests
 app.use(limiter);
 
