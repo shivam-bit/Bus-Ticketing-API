@@ -12,6 +12,7 @@ const connectDatabase=require('./config/database')
 const errorHandlerClass=require('./utils/errorHandlerClass')
 const errorHandler=require('./middlewares/errorHandler')
 const cookieParser=require('cookie-parser')
+
 // setting up config.env file variables
 dotenv.config ({path:"./config/config.env"})
 
@@ -24,6 +25,8 @@ process.on('uncaughtException',err=>{
 
 // connecting to database
 connectDatabase();
+
+
 // setup body parser
 app.use(bodyParser.urlencoded({extended:true}))
 // setup security header
@@ -38,7 +41,6 @@ app.use(mongoSanitize())
 app.use(xssClean())
 // prevent parameter pollution
 app.use(hpp())
-
 // rate limit
 const limiter=rateLimit({
     windowMs: 10 * 60 * 1000, // 15 minutes
