@@ -24,8 +24,9 @@ process.on('uncaughtException',err=>{
 })
 
 // connecting to database
+if (process.env.NODE_ENV !== 'test'){
 connectDatabase();
-
+}
 
 // setup body parser
 app.use(bodyParser.urlencoded({extended:true}))
@@ -65,7 +66,7 @@ app.all('*',(req,res,next)=>{
 
 app.use(errorHandler)
 const PORT=process.env.PORT
-const server = app.listen(PORT || 80 , ()=> {
+const server = app.listen(PORT , ()=> {
     console.log(`Server started on port ${process.env.PORT} in ${process.env.NODE_ENV} mode.`);
 });
 
@@ -77,3 +78,4 @@ process.on('unhandledRejection',err=>{
         process.exit(1);
     })
 })
+module.exports=server

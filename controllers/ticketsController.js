@@ -25,7 +25,11 @@ exports.bookTicket=catchAsyncError( async (req,res,next)=>{
 })
 // cancel ticket => api/v1/ticket/cancel/:id
 exports.cancelTicket=catchAsyncError( async(req,res,next)=>{
-    const ticket=await ticketsDB.findByIdAndUpdate(req.params.id,{"status":"Cancelled"},{new:true})
+    const ticket=await ticketsDB.findByIdAndUpdate(req.params.id,{"status":"Cancelled"},{
+        new:true,
+        runValidators:true,
+        useFindAndModify:false
+    })
     if (!ticket){
         return next( new errorHandlerClass("wrong id",404))
     }
