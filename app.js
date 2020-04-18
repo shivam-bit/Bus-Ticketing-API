@@ -65,7 +65,7 @@ app.all('*',(req,res,next)=>{
 
 app.use(errorHandler)
 const PORT=process.env.PORT
-const server = app.listen(PORT, ()=> {
+const server = app.listen(PORT || 80 , ()=> {
     console.log(`Server started on port ${process.env.PORT} in ${process.env.NODE_ENV} mode.`);
 });
 
