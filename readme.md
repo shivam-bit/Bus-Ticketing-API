@@ -39,7 +39,7 @@ npm run prod
 👤 **shivam singh**
 
 * Github: [@shivam-bit](https://github.com/shivam-bit)
-* LinkedIn: [@shivam-singh-742514197](https://linkedin.com/in/shivam-singh-742514197)
+* LinkedIn: [@shivam-singh-742514197](https://linkedin.com/in/shivam-singh-742514197/)
 
 ## 🤝 Some more details
 
@@ -52,7 +52,7 @@ API can be accessed via path [/api/v1](ec2-3-134-100-147.us-east-2.compute.amazo
 
 Postman collection is also present in this repo.
 
-####Admin user credentials
+###Admin user credentials
 email: admin@admin.com | password: admin
 
 Note: User of customer role can be created in real time
