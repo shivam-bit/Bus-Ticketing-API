@@ -48,7 +48,7 @@ This API is hosted on an AWS EC2 instance. so it can be even accessed at this [e
 The database is being hosted on [MongoDB cloud atlas](https://www.mongodb.com/cloud/atlas).
 The test database is hosted localley. 
 
-API can be accessed via path [/api/v1](ec2-3-134-100-147.us-east-2.compute.amazonaws.com:3000/api/v1)
+API can be accessed via path [/api/v1](ec2-3-134-100-147.us-east-2.compute.amazonaws.com:3000/api/v1/)
 
 Postman collection is also present in this repo.
 
