@@ -29,7 +29,7 @@ module.exports=(err,req,res,next)=>{
         }
         if(err.name==='TypeError'){
             const message = "Wrong type of data is being passed"
-            error = new errorHandlerClass(message, 401);
+            error = new errorHandlerClass(message, 400);
             res.status(error.statusCode).json({
                 success:false,
                 message:error.message
@@ -48,7 +48,7 @@ module.exports=(err,req,res,next)=>{
         // Handling Wrong JWT token error
         if(err.name === 'JsonWebTokenError') {
             const message = 'JSON Web token is invalid. Try Again!'
-            error = new errorHandlerClass(message, 500)
+            error = new errorHandlerClass(message, 401)
             res.status(error.statusCode).json({
                 success:false,
                 message:error.message
@@ -57,7 +57,7 @@ module.exports=(err,req,res,next)=>{
         // Handling Expired JWT token error
         if(err.name === 'TokenExpiredError') {
             const message = 'JSON Web token is expired. Try Again!';
-            error = new errorHandlerClass(message, 500);
+            error = new errorHandlerClass(message, 401);
             res.status(error.statusCode).json({
                 success:false,
                 message:error.message

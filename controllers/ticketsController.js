@@ -20,7 +20,7 @@ exports.bookTicket=catchAsyncError( async (req,res,next)=>{
                 data:booking
             })}
     }else{
-        return next( new errorHandlerClass("please provide date of travel",200))
+        return next( new errorHandlerClass("please provide date of travel",400))
     }
 })
 // cancel ticket => api/v1/ticket/cancel/:id
@@ -35,7 +35,7 @@ exports.cancelTicket=catchAsyncError( async(req,res,next)=>{
     }
     // check owner of the ticket
     if (ticket.user.toString() !== req.user.id ){
-        return next(new errorHandlerClass(`Current user ${req.user.id} is not allowed update details of this ticket`,))
+        return next(new errorHandlerClass(`Current user ${req.user.id} is not allowed update details of this ticket`,403))
     }
     res.status(200).json({
         success:true,
@@ -51,7 +51,7 @@ exports.updateTicket=catchAsyncError(async(req,res,next)=>{
     }
     // check owner of the ticket
     if (ticket.user.toString() !== req.user.id ){
-        return next(new errorHandlerClass(`User ${req.user.id} is not allowed update details of this ticket`,))
+        return next(new errorHandlerClass(`User ${req.user.id} is not allowed update details of this ticket`,403))
     }
     const updatedTicket=await ticketsDB.findByIdAndUpdate(req.params.id,req.body,{
         new:true,
