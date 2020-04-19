@@ -7,7 +7,7 @@ exports.bookTicket=catchAsyncError( async (req,res,next)=>{
     const dateObject=new Date(req.body.date_of_travel)
     if (dateObject!='Invalid Date'){
         const ticketsBooked=await ticketsDB.find({$and:[{date_of_travel:dateObject.toISOString()},{status:"Booked"}]})
-        if (ticketsBooked.length>=8){
+        if (ticketsBooked.length>=40){
             return next( new errorHandlerClass("sorry seats full",200))
         }
         else{
