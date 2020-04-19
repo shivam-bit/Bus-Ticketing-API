@@ -1,0 +1,636 @@
+{
+	"info": {
+		"_postman_id": "ac407324-4612-4b54-b626-5e697877a2e5",
+		"name": "BusTicketing API",
+		"description": "bus ticketing api built using node.js for a company that owns a single bus with 40 seats capacity",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Tickets",
+			"item": [
+				{
+					"name": "Book Ticket",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"shivam singh\",\n\t\"date_of_travel\":\"2020-04-18\",\n\t\"validation_id_no\":\"8299022435\"\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/ticket/book",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"ticket",
+								"book"
+							]
+						},
+						"description": "book ticket by providing atleast date_of_travel and validation_id_no as json header body"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Ticket",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"name": "Content-Type",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"gender\":\"male\"\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/ticket/update/:id",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"ticket",
+								"update",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5e9c61c286065210181fae22"
+								}
+							]
+						},
+						"description": "update ticket details by providing id"
+					},
+					"response": []
+				},
+				{
+					"name": "Ticket Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/ticket/status/:id",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"ticket",
+								"status",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5e9c61c286065210181fae22"
+								}
+							]
+						},
+						"description": "get ticket status whther it is booked or cancelled"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Detail Ticket Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/ticket/detail-status/:id",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"ticket",
+								"detail-status",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5e9c61c286065210181fae22"
+								}
+							]
+						},
+						"description": "Get all the details that are attached to a ticket by its id"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Tickets",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/api/v1/ticket/all/:date/:status",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"ticket",
+								"all",
+								":date",
+								":status"
+							],
+							"variable": [
+								{
+									"key": "date",
+									"value": "2020-04-18",
+									"description": "In YYYY-MM-DD format"
+								},
+								{
+									"key": "status",
+									"value": "Booked",
+									"description": "Either Booked or Cancelled"
+								}
+							]
+						},
+						"description": "get all booked/cancelled tickets of a particular date by passing appropriate values to the parameter"
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Ticket",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/ticket/cancel/:id",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"ticket",
+								"cancel",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5e9c61c286065210181fae22",
+									"description": "object _id of the ticket which need to be cancelled"
+								}
+							]
+						},
+						"description": "Cancel ticket by providing objectid as parameter"
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Server",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/reset/:date",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reset",
+								":date"
+							],
+							"variable": [
+								{
+									"key": "date",
+									"value": "2020-04-18",
+									"description": "date for which server needs to be reset"
+								}
+							]
+						},
+						"description": "Reset server that is cancel all the current ticket booking for a particular date . \nOnly accessible by admin"
+					},
+					"response": []
+				}
+			],
+			"description": "This module is responsible for booking,cancellation,updation,viewing ticket status and it's details.\nAlso an admin can only reset function",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "32647045-6758-475d-bf1d-0adabe680635",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "d186948a-8e58-4725-8d80-36423f721d83",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/profile",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"profile"
+							]
+						},
+						"description": "Get profile of current logged in user ,which includes information like role,name,id etc."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6d5d44de-d614-4ef3-81c2-82b2a102b11a",
+								"exec": [
+									"pm.environment.set(\"token\",pm.response.json().token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"currentPassword\":\"pass@1234\",\n\t\"newPassword\":\"password@1234\"\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/password/update",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"password",
+								"update"
+							]
+						},
+						"description": "update current user password by providing new and old password"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"new name\",\n\t\"email\":\"email@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/profile/update",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"profile",
+								"update"
+							]
+						},
+						"description": "Update current logged in user profile data like name and email"
+					},
+					"response": []
+				}
+			],
+			"description": "All routes related to users like his/her profile, booking history etc.",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"shivam singh\",\n\t\"email\":\"shivam@gmail.com\",\n\t\"password\":\"pass@1234\",\n\t\"role\":\"customer\"\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/register",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"register"
+							]
+						},
+						"description": "register new user by providing required paramters through request body and get  JWT token back on successful registration"
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e91913bf-859a-4032-b87e-a91ad1cae2d2",
+								"exec": [
+									"pm.environment.set(\"token\",pm.response.json().token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"shivam@gmail.com\",\n\t\"password\":\"pass@1234\"\n}"
+						},
+						"url": {
+							"raw": "{{domain}}/api/v1/login",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"login"
+							]
+						},
+						"description": "login authenticated user by providing correct email and password"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7945c702-859f-439c-b288-9cecacfad07a",
+								"exec": [
+									"pm.environment.set(\"token\",pm.response.json().token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/v1/logout",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"logout"
+							]
+						},
+						"description": "logged out currentley loggedin user and also expires the cookie"
+					},
+					"response": []
+				}
+			],
+			"description": "This module provide us user authentication features like registration,login and logout",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5ed45304-7758-43de-bd27-b10b69497bf3",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c07a7691-a709-44f0-95b9-ccec3623f54f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "eccd780d-d092-46fd-b3cd-2c7deef41f0c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "efd5715c-6b2f-400e-ad20-2487d649a470",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "951d4331-88c3-4ff3-83e0-fa10f1d9f961",
+			"key": "domain",
+			"value": "http://localhost:3000/",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

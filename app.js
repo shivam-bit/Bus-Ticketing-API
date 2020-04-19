@@ -30,6 +30,7 @@ connectDatabase();
 
 // setup body parser
 app.use(bodyParser.urlencoded({extended:true}))
+app.use(express.static('public'))
 // setup security header
 app.use(helmet())
 // setting up body parser
