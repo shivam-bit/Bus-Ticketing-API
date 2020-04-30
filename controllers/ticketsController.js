@@ -6,6 +6,11 @@ const errorHandlerClass=require('../utils/errorHandlerClass')
 exports.bookTicket=catchAsyncError( async (req,res,next)=>{
     const dateObject=new Date(req.body.date_of_travel)
     if (dateObject!='Invalid Date'){
+        now=new Date()
+        now.setHours(0,0,0,0)
+        if (dateObject<now){
+            return next( new errorHandlerClass("Ticket can't be booked with old date",400))
+        }
         const ticketsBooked=await ticketsDB.find({$and:[{date_of_travel:dateObject.toISOString()},{status:"Booked"}]})
         if (ticketsBooked.length>=40){
             return next( new errorHandlerClass("sorry seats full",200))
@@ -52,6 +57,13 @@ exports.updateTicket=catchAsyncError(async(req,res,next)=>{
     // check owner of the ticket
     if (ticket.user.toString() !== req.user.id ){
         return next(new errorHandlerClass(`User ${req.user.id} is not allowed update details of this ticket`,403))
+    }
+    // checks for status in request body
+    if ('status' in req.body){
+        return next( new errorHandlerClass("status can't be updated",403))
+    }
+    if (ticket.status==="Cancelled"){
+        return next( new errorHandlerClass("cancelled ticket can't be updated",403))
     }
     const updatedTicket=await ticketsDB.findByIdAndUpdate(req.params.id,req.body,{
         new:true,
@@ -111,6 +123,11 @@ exports.allTickets=catchAsyncError( async (req,res,next)=>{
 // reset server for admin =>api/v1/reset/:date
 exports.resetServer=catchAsyncError(async(req,res,next)=>{
     const dateObject=new Date(req.params.date)
+    now=new Date()
+    now.setHours(0,0,0,0)
+    if (dateObject<now){
+        return next( new errorHandlerClass("History can't be changed",400))
+    }
     const alltickets=await ticketsDB.find({date_of_travel:dateObject.toISOString()})
     arr=[]
     for (let i=0;i<alltickets.length;i++){

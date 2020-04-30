@@ -1,5 +1,5 @@
-const mongoose=require('mongoose');
-
+const mongoose=require('mongoose')
+const validatePhoneNumber = require('validate-phone-number-node-js')
 
 const ticketsSchema=new mongoose.Schema({
     date_of_travel:{
@@ -23,8 +23,9 @@ const ticketsSchema=new mongoose.Schema({
         }
     },
     mobile:{
-        type:Number,
-        minlength : [10,'mobile number should be at least 10 digits'],
+        type:String,
+        validate:validatePhoneNumber.validate ,
+        minlength : [10, 'mobile number should be at least 10 digits'],
         maxlength : [10, 'mobile number should be at max 10 digits']
     },
     validation_id_no:{
