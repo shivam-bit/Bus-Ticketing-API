@@ -8,6 +8,7 @@ exports.bookTicket=catchAsyncError( async (req,res,next)=>{
     if (dateObject!='Invalid Date'){
         now=new Date()
         now.setHours(0,0,0,0)
+        // ticket can't be booked in previous date
         if (dateObject<now){
             return next( new errorHandlerClass("Ticket can't be booked with old date",400))
         }
