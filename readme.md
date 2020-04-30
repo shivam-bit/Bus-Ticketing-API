@@ -52,12 +52,13 @@ API can be accessed via path [/api/v1](ec2-3-134-100-147.us-east-2.compute.amazo
 
 Postman collection is also present in this repo.
 
-###Admin user credentials
-email: admin@admin.com | password: admin
+#### Admin user credentials
+
+email: admin@admin.com | password: admin123
 
 Note: User of customer role can be created in real time
 
 
 ## Show your support
 
-Give a ⭐️ if this project helped you!
+Give a ⭐️ if you like this project!
